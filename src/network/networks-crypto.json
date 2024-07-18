@@ -1,0 +1,59 @@
+{
+  "networks": [
+    {
+      "id": 1,
+      "name": "Ethereum",
+      "symbol": "ETH",
+      "chain_id": "1"
+    },
+    {
+      "id": 2,
+      "name": "Optimism",
+      "symbol": "OP-USD",
+       "chain_id": "10"
+    },
+    {
+      "id": 3,
+      "name":"Binance",
+      "symbol": "BNB",
+      "chain_id":"56"
+    }
+  ],
+  "crypto": [
+    {
+      "name": "Ethereum",
+      "symbol": "ETH",
+      "contract_address": "0x00",
+      "native": true,
+      "networkId": 1
+    },
+    {
+      "name": "Tether",
+      "symbol": "USDT",
+      "contract_address": "0x55d398326f99059ff775485246999027b3197955",
+      "native": false,
+      "networkId": 1
+    },
+    {
+      "name": "Bitcoin",
+      "symbol": "BTC",
+      "contract_address": "0x00",
+      "native": true,
+      "networkId": 2
+    },
+    {
+      "name":"Binance USDT",
+      "symbol": "USDT",
+      "contract_address": "0x55d398326f99059fF775485246999027B3197955",
+      "native": false,
+      "networkId": 3
+    },
+    {
+      "name":"Binance coin",
+      "symbol": "BNB",
+      "contract_address": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
+      "native": true,
+      "networkId": 3
+    }
+  ]
+}

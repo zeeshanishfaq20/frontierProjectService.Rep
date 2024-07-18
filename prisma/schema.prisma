@@ -1,0 +1,92 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                Int               @id @default(autoincrement())
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  user_id           String            @unique @default(uuid())     
+  email_address     String            @unique
+  hash              String
+  status            UserStatus
+
+  verificationCodes VerificationCode[]
+  networkAcc        NetworkAcc[]
+  exchangeAcc       ExchangeAcc[]
+}
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+  DELETED
+}
+
+model VerificationCode {
+  id                Int               @id @default(autoincrement())
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  token             String            @unique 
+
+  user              User              @relation(fields: [userId], references: [user_id])       
+  userId            String            @unique           
+}
+
+model Network {
+  network_id        Int               @id @default(autoincrement())
+  network_name      String
+  network_symbol    String 
+  network_chain_id  String
+  networkAcc        NetworkAcc[]
+  cryptoCurrency    CryptoCurrency[]
+}
+
+model NetworkAcc {
+  networkacc_id     Int               @id @default(autoincrement())
+  address           String
+
+  network           Network           @relation(fields: [networkId], references: [network_id])
+  networkId         Int               
+
+  user              User              @relation(fields: [userId], references: [user_id]) 
+  userId            String             
+}
+
+model CryptoCurrency {
+  name              String            @unique
+  symbol            String           
+  contract_address  String
+
+  network           Network           @relation(fields: [networkId], references: [network_id])
+  networkId         Int               
+
+  native            Boolean  
+}
+
+model Exchange {
+  exchange_id       Int               @unique
+  exchange_name     String
+
+  exchangeAcc       ExchangeAcc[]
+}
+
+model ExchangeAcc {
+  exchange          Exchange          @relation(fields: [exchangeId], references: [exchange_id])
+  exchangeId        Int               @unique
+  
+  user              User              @relation(fields: [userId], references: [user_id])
+  userId            String               @unique
+  
+  API_key           String
+  API_secret        String
+}
